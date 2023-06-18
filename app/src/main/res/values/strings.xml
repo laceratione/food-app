@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FoodApp</string>
+
+    <string name="location_name">Санкт-Петербург</string>
+    <string name="date_current">12 Августа, 2023</string>
+
+    <string name="bot_nav_action_1">Главная</string>
+    <string name="bot_nav_action_2">Поиск</string>
+    <string name="bot_nav_action_3">Корзина</string>
+    <string name="bot_nav_action_4">Аккаунт</string>
+</resources>
