@@ -2,6 +2,7 @@ package com.example.foodapp.presentation.dishes
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View

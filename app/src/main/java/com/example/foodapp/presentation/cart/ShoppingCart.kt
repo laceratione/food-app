@@ -25,7 +25,6 @@ class ShoppingCart: Fragment() {
         bindind.apply {
             shopCartViewModel = sharedViewModel
             shoppingCartAdapter = adapter
-            //можно создать поля и перенести во viewModel
             cart = Cart
         }
         bindind.lifecycleOwner = viewLifecycleOwner

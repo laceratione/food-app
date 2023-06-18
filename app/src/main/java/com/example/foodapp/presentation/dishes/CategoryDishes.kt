@@ -1,9 +1,14 @@
 package com.example.foodapp.presentation.dishes
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.doOnLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,8 +20,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.CornerFamily
 
-class CategoryDishes(private val dishType: DishType): Fragment() {
-    private val sharedViewModel: CatDishesViewModel by activityViewModels(){
+class CategoryDishes(private val dishType: DishType) : Fragment() {
+    private val sharedViewModel: CatDishesViewModel by activityViewModels() {
         CatDishesModelFactory(requireActivity().application)
     }
     lateinit var adapter: CategoryDishesAdapter
@@ -45,6 +50,7 @@ class CategoryDishes(private val dishType: DishType): Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,16 +62,12 @@ class CategoryDishes(private val dishType: DishType): Fragment() {
 
         val chip: Chip? = chipGroup?.getChildAt(0) as Chip?
         chip?.isChecked = true
-
-//        val dishes = sharedViewModel.filterDishes(mutableListOf("Все меню"))
-//        this.tags.add("Все меню")
-//        adapter.updateItems(dishes)
     }
 
-    private fun createChip(name: String): Chip{
+    private fun createChip(name: String): Chip {
         return Chip(context).apply {
             text = name
-            textAlignment =  View.TEXT_ALIGNMENT_CENTER
+            textAlignment = View.TEXT_ALIGNMENT_CENTER
             setChipBackgroundColorResource(R.color.chip_tab_item_foreground)
             setCheckedIconVisible(false)
             setCloseIconVisible(false)
@@ -82,7 +84,6 @@ class CategoryDishes(private val dishType: DishType): Fragment() {
                 else
                     tags.remove(name)
                 val list: List<String> = tags
-                //добавить после заргрузки данных
                 val dishes = sharedViewModel.filterDishes(tags)
                 adapter.updateItems(dishes)
             }

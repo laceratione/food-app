@@ -30,8 +30,6 @@ class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolde
         holder.count.text = dishes.get(position).count.toString()
 
         holder.btnRemove.setOnClickListener {
-            //перенести во viewModel
-            //должна ли быть здесь логика?
             Cart.decreaseSum(dishes.get(position).price)
             var count = Integer.valueOf(holder.count.text.toString())
             holder.count.text = (--count).toString()

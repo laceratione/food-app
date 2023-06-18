@@ -24,14 +24,12 @@ class HomeViewModel(application: Application) : ViewModel() {
     //категории блюд
     val dataDishTypes: MutableLiveData<List<DishType>> = MutableLiveData()
 
-//    val dataSelectCategory: MutableLiveData<DishType> = MutableLiveData()
     lateinit var selectCategory: DishType
 
     //выбранная страница навигации
     private val botNavPage: MutableLiveData<Int> = MutableLiveData()
     val botNavPageLive: LiveData<Int> = botNavPage
 
-    //СПРОСИТЬ НАСЧЕТ ЭТОГО
     private val isLoadingDishes: MutableLiveData<Boolean> = MutableLiveData()
     val isLoadingDishesLive: LiveData<Boolean> = isLoadingDishes
 
