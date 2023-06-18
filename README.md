@@ -10,13 +10,14 @@ ___
 </h1>
 
 ___
-## Категоря блюд
+## Категория блюд
 Данный экран позволяет:
 - просмотреть блюда выбранной категории
 - отсортировать их по указанным тегам
 - узнать дополнительную информацию о конкретном блюде
 <h1 align="center">
-  <img src="https://github.com/laceratione/food-app/assets/43997427/0769e60a-3dae-44db-8bbc-a6564415a7ae" width="250" height="500">
+   <img src="https://github.com/laceratione/food-app/assets/43997427/0769e60a-3dae-44db-8bbc-a6564415a7ae" width="250" height="500">
+   <img src="https://github.com/laceratione/food-app/assets/43997427/53cf4c3f-19c8-4cd1-ae25-caf12b8529bc" width="250" height="500">
 </h1>
 
 ___
@@ -25,6 +26,7 @@ ___
 - фото и название блюда
 - стоимость и вес одной порции
 - краткое описание
+
 Пользователь может:
 - закрыть данное окно
 - добавить в избранное
