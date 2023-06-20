@@ -53,6 +53,7 @@ ___
 - Dagger2
 - MVVM
 - Clean Architecture
+- Navigation Architecture Component
 
 ___
 
