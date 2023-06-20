@@ -1,30 +1,34 @@
 package com.example.foodapp.presentation.dishes
 
-import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.doOnLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.transaction
-import com.example.domain.model.DishType
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentCategoryDishesBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.CornerFamily
 
-class CategoryDishes(private val dishType: DishType) : Fragment() {
+class CategoryDishes() : Fragment() {
+    private lateinit var binding: FragmentCategoryDishesBinding
     private val sharedViewModel: CatDishesViewModel by activityViewModels() {
         CatDishesModelFactory(requireActivity().application)
     }
-    lateinit var adapter: CategoryDishesAdapter
+    private val args: CategoryDishesArgs by navArgs()
+    private lateinit var adapter: CategoryDishesAdapter
     private var tags: MutableList<String> = mutableListOf()
 
     override fun onCreateView(
@@ -32,20 +36,15 @@ class CategoryDishes(private val dishType: DishType) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentCategoryDishesBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_category_dishes, container, false)
         adapter = CategoryDishesAdapter(requireContext())
         binding.apply {
             viewModel = sharedViewModel
             categoryDishesAdapter = adapter
-            tvCategoryDishes.text = dishType.name
+            tvCategoryDishes.text = args.nameCat
         }
         binding.lifecycleOwner = viewLifecycleOwner
-
-        sharedViewModel.isBackPressed.observe(requireActivity(), {
-            if (it)
-                fragmentManager?.popBackStack()
-        })
 
         return binding.root
     }
@@ -54,6 +53,16 @@ class CategoryDishes(private val dishType: DishType) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initChipGroup()
+
+
+        sharedViewModel.isBackPressed.observe(requireActivity(), {
+//            if (it) {}
+
+        })
+    }
+
+    private fun initChipGroup() {
         val tags: List<String> = listOf("Все меню", "Салаты", "С рисом", "С рыбой")
         val chipGroup: ChipGroup? = getView()?.findViewById(R.id.chipGroup)
         tags.forEach { tagName ->
@@ -64,6 +73,7 @@ class CategoryDishes(private val dishType: DishType) : Fragment() {
         chip?.isChecked = true
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun createChip(name: String): Chip {
         return Chip(context).apply {
             text = name
@@ -83,7 +93,6 @@ class CategoryDishes(private val dishType: DishType) : Fragment() {
                     tags.add(name)
                 else
                     tags.remove(name)
-                val list: List<String> = tags
                 val dishes = sharedViewModel.filterDishes(tags)
                 adapter.updateItems(dishes)
             }

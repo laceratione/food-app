@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodapp.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryDishes"
+            app:destination="@id/categoryDishes" >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodapp.presentation.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/shoppingCart"
+        android:name="com.example.foodapp.presentation.cart.ShoppingCart"
+        android:label="ShoppingCart"
+        tools:layout="@layout/fragment_shopping_cart" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.foodapp.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/categoryDishes"
+        android:name="com.example.foodapp.presentation.dishes.CategoryDishes"
+        android:label="CategoryDishes"
+        tools:layout="@layout/fragment_category_dishes">
+        <argument
+            android:name="nameCat"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Категория" />
+    </fragment>
+</navigation>

@@ -5,43 +5,46 @@
     tools:context=".MainActivity">
 
     <data>
+
         <variable
             name="homeViewModel"
             type="com.example.foodapp.presentation.home.HomeViewModel" />
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <FrameLayout
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/main_graph" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_shade2"/>
+            android:background="@color/gray_shade2" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            app:itemIconSize="@dimen/bottom_navigation_icon_size"
-            app:labelVisibilityMode="labeled"
-            app:itemIconTint="@color/bnv_tab_item_foreground"
-            app:itemTextColor="@color/bnv_tab_item_foreground"
-            android:background="@color/white"
-            app:onNavigationItemSelected="@{(menuItem)->homeViewModel.bottomNavItemSelected(menuItem)}"
-            app:elevation="0dp"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:id="@+id/bottom_navigation"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_navigation_menu"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:itemIconSize="@dimen/bottom_navigation_icon_size"
+            app:itemIconTint="@color/bnv_tab_item_foreground"
+            app:itemTextColor="@color/bnv_tab_item_foreground"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 </layout>

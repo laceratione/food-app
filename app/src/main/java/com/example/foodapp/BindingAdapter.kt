@@ -31,14 +31,6 @@ private fun createAdapter(recyclerView: RecyclerView, listener: DishTypeAdapter.
     }
 }
 
-@BindingAdapter("onNavigationItemSelected")
-fun setOnNavigationItemSelectedListener(
-    view: BottomNavigationView,
-    listener: BottomNavigationView.OnNavigationItemSelectedListener
-) {
-    view.setOnNavigationItemSelectedListener(listener)
-}
-
 //обновление блюд выбранной категории
 @BindingAdapter("dataCategoryDishes", "myContext")
 fun bindGridView(gridView: GridView, itemViewModels: List<Dish>?, context: Context) {

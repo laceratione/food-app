@@ -2,7 +2,6 @@ package com.example.foodapp.presentation.home
 
 import android.app.Application
 import android.util.Log
-import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,7 +55,6 @@ class HomeViewModel(application: Application) : ViewModel() {
                     viewModelScope.launch(Dispatchers.IO) {
                         dishTypes?.let {
                             DataUtils.getBitmaps(it)
-//                            getBitmaps(it)
                             dataDishTypes.postValue(it)
                             isDishTypesLoading.postValue(false)
                         }
@@ -75,17 +73,5 @@ class HomeViewModel(application: Application) : ViewModel() {
         //открыть фрагмент CategoryDishes
         isLoadingDishes.value = true
     }
-
-    fun bottomNavItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.page_1 -> botNavPage.value = 1
-            R.id.page_2 -> botNavPage.value = 2
-            R.id.page_3 -> botNavPage.value = 3
-            R.id.page_4 -> botNavPage.value = 4
-        }
-
-        return true
-    }
-
 
 }
