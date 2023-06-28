@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodapp.R
 import com.example.domain.model.DishType
 
-class DishTypeAdapter(private val listener: OnItemCategClickListener) : RecyclerView.Adapter<DishTypeAdapter.ViewHolder>() {
+class DishTypeAdapter(private val listener: OnItemCategClickListener) :
+    RecyclerView.Adapter<DishTypeAdapter.ViewHolder>() {
     private var dishTypes: List<DishType> = emptyList()
 
-    public interface OnItemCategClickListener {
+    interface OnItemCategClickListener {
         fun onItemClick(type: DishType)
     }
 
@@ -29,10 +30,10 @@ class DishTypeAdapter(private val listener: OnItemCategClickListener) : Recycler
             val bitmap: Bitmap? = dishTypes[position].bitmap
             holder.ivPicture.setImageBitmap(bitmap)
             holder.tvTitle.text = dishTypes[position].name
-            holder.itemView.setOnClickListener{
+            holder.itemView.setOnClickListener {
                 listener.onItemClick(dishTypes[position])
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -44,7 +45,7 @@ class DishTypeAdapter(private val listener: OnItemCategClickListener) : Recycler
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPicture: ImageView = itemView.findViewById(R.id.ivDishType)
         val tvTitle: TextView = itemView.findViewById(R.id.tvDishType)
     }

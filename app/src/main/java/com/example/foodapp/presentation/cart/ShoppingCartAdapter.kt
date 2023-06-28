@@ -22,15 +22,17 @@ class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolde
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap: Bitmap? = dishes.get(position)?.bitmap
+        val dish = dishes.get(position)
+
+        val bitmap: Bitmap? = dish.bitmap
         holder.picture.setImageBitmap(bitmap)
-        holder.name.text = dishes.get(position).name
-        holder.price.text = dishes.get(position).price.toString() + " ₽"
-        holder.weight.text ="· " + dishes.get(position).weight.toString() + "г"
-        holder.count.text = dishes.get(position).count.toString()
+        holder.name.text = dish.name
+        holder.price.text = dish.price.toString() + " ₽"
+        holder.weight.text ="· " + dish.weight.toString() + "г"
+        holder.count.text = dish.count.toString()
 
         holder.btnRemove.setOnClickListener {
-            Cart.decreaseSum(dishes.get(position).price)
+            Cart.decreaseSum(dish.price)
             var count = Integer.valueOf(holder.count.text.toString())
             holder.count.text = (--count).toString()
             dishes.get(position).count = count
@@ -42,7 +44,7 @@ class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolde
         }
 
         holder.btnAdd.setOnClickListener {
-            Cart.increaseSum(dishes.get(position).price)
+            Cart.increaseSum(dish.price)
             var count = Integer.valueOf(holder.count.text.toString())
             holder.count.text = (++count).toString()
             dishes.get(position).count = count

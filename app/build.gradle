@@ -34,11 +34,8 @@ android {
                 '-Xjvm-default=enable'
         ]
     }
-//    buildFeatures {
-//        viewBinding true
-//    }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 
 }

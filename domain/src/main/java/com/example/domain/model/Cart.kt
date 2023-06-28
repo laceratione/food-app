@@ -1,22 +1,18 @@
 package com.example.domain.model
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 //корзина покупок
-object Cart : BaseObservable() {
+object Cart {
     private var dishes: MutableList<Dish> = mutableListOf()
-    private var summ: Int = 0
 
-    @Bindable
-    fun getSumm(): Int {
-        return summ
-    }
+    private var _summ: Int = 0
+    private val _summLive: MutableLiveData<Int> = MutableLiveData(0)
+    val summLive: LiveData<Int> = _summLive
 
-    fun setSumm(summ: Int) {
-        this.summ = summ
-        notifyPropertyChanged(BR.summ)
+    fun setSumm() {
+        _summLive.postValue(_summ)
     }
 
     //добавить товар
@@ -30,23 +26,16 @@ object Cart : BaseObservable() {
         return true
     }
 
-    //удалить товар
-    fun remove(item: Dish) {
-        item.count--
-        dishes.remove(item)
-        decreaseSum(item.price)
-    }
-
     fun getDishes(): MutableList<Dish> = dishes
 
     fun increaseSum(price: Int) {
-        summ += price
-        setSumm(summ)
+        _summ += price
+        setSumm()
     }
 
     fun decreaseSum(price: Int) {
-        summ -= price
-        setSumm(summ)
+        _summ -= price
+        setSumm()
     }
 
 }

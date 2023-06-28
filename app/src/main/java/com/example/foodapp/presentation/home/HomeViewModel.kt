@@ -21,18 +21,17 @@ import javax.inject.Inject
 
 class HomeViewModel(application: Application) : ViewModel() {
     //категории блюд
-    val dataDishTypes: MutableLiveData<List<DishType>> = MutableLiveData()
+    private val _dataDishTypes: MutableLiveData<List<DishType>> = MutableLiveData()
+    val dataDishTypes: MutableLiveData<List<DishType>> = _dataDishTypes
 
-    lateinit var selectCategory: DishType
+    private lateinit var _selectCategory: DishType
+    val selectCategory get() = _selectCategory
 
-    //выбранная страница навигации
-    private val botNavPage: MutableLiveData<Int> = MutableLiveData()
-    val botNavPageLive: LiveData<Int> = botNavPage
+    private val _isOpenCategory: MutableLiveData<Boolean> = MutableLiveData()
+    val isOpenCategory: LiveData<Boolean> = _isOpenCategory
 
-    private val isLoadingDishes: MutableLiveData<Boolean> = MutableLiveData()
-    val isLoadingDishesLive: LiveData<Boolean> = isLoadingDishes
-
-    val isDishTypesLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val _isDishTypesLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isDishTypesLoading: LiveData<Boolean> = _isDishTypesLoading
 
     @Inject
     lateinit var dishTypesUseCase: GetDataDishTypes
@@ -48,15 +47,15 @@ class HomeViewModel(application: Application) : ViewModel() {
     //загрузка категорий блюд домашней страницы
     suspend fun getDataDishTypes() = coroutineScope {
         launch {
-            isDishTypesLoading.postValue(true)
+            _isDishTypesLoading.postValue(true)
             dishTypesUseCase().enqueue(object : Callback<Categories> {
                 override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
                     val dishTypes = response.body()?.categories
                     viewModelScope.launch(Dispatchers.IO) {
                         dishTypes?.let {
                             DataUtils.getBitmaps(it)
-                            dataDishTypes.postValue(it)
-                            isDishTypesLoading.postValue(false)
+                            _dataDishTypes.postValue(it)
+                            _isDishTypesLoading.postValue(false)
                         }
                     }
                 }
@@ -69,9 +68,8 @@ class HomeViewModel(application: Application) : ViewModel() {
     }
 
     fun loadCategoryDishes(type: DishType){
-        selectCategory = type
-        //открыть фрагмент CategoryDishes
-        isLoadingDishes.value = true
+        _selectCategory = type
+        _isOpenCategory.value = true
     }
 
 }

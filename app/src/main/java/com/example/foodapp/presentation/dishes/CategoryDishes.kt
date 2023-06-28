@@ -5,19 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.foodapp.MainActivity
 import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentCategoryDishesBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.CornerFamily
@@ -37,28 +32,31 @@ class CategoryDishes() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_category_dishes, container, false)
-        adapter = CategoryDishesAdapter(requireContext())
-        binding.apply {
-            viewModel = sharedViewModel
-            categoryDishesAdapter = adapter
-            tvCategoryDishes.text = args.nameCat
-        }
-        binding.lifecycleOwner = viewLifecycleOwner
-
+            FragmentCategoryDishesBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = CategoryDishesAdapter(requireContext())
+        binding.gvCategoryDishes.adapter = adapter
+
+        binding.tvCategoryDishes.text = args.nameCat
+        binding.btnBack.setOnClickListener { }
+
         initChipGroup()
 
+        sharedViewModel.dataCategoryDishes.observe(viewLifecycleOwner, {
+            adapter.updateItems(it)
+        })
+
+        sharedViewModel.isCategoryDishesLoading.observe(viewLifecycleOwner, {
+            binding.pbCategoryDishes.visibility = if (it) View.VISIBLE else View.GONE
+        })
 
         sharedViewModel.isBackPressed.observe(requireActivity(), {
 //            if (it) {}
-
         })
     }
 
@@ -98,5 +96,6 @@ class CategoryDishes() : Fragment() {
             }
         }
     }
+
 
 }

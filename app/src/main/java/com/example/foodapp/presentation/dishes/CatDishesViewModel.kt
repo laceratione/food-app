@@ -18,12 +18,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class CatDishesViewModel(application: Application): ViewModel() {
+class CatDishesViewModel(application: Application) : ViewModel() {
     //блюда конкретной категории
-    val dataCategoryDishes: MutableLiveData<List<Dish>> = MutableLiveData()
+    private val _dataCategoryDishes: MutableLiveData<List<Dish>> = MutableLiveData()
+    val dataCategoryDishes: MutableLiveData<List<Dish>> = _dataCategoryDishes
 
     //процесс загрузки
-    val isCategoryDishesLoading: MutableLiveData<Boolean> = MutableLiveData()
+    private val _isCategoryDishesLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isCategoryDishesLoading: MutableLiveData<Boolean> = _isCategoryDishesLoading
 
     //событие "Назад"
     val isBackPressed: MutableLiveData<Boolean> = MutableLiveData()
@@ -42,7 +44,7 @@ class CatDishesViewModel(application: Application): ViewModel() {
     //загрузка блюд выбранной категории
     suspend fun getDataCategoryDishes() = coroutineScope {
         launch {
-            isCategoryDishesLoading.postValue(true)
+            _isCategoryDishesLoading.postValue(true)
             categoryDishesUseCase().enqueue(object : Callback<Dishes> {
                 override fun onResponse(call: Call<Dishes>, response: Response<Dishes>) {
                     val dishes = response.body()?.dishes
@@ -50,8 +52,8 @@ class CatDishesViewModel(application: Application): ViewModel() {
                         dishes?.let {
                             DataUtils.getBitmaps(it)
 //                            getBitmaps(it)
-                            dataCategoryDishes.postValue(it)
-                            isCategoryDishesLoading.postValue(false)
+                            _dataCategoryDishes.postValue(it)
+                            _isCategoryDishesLoading.postValue(false)
                         }
                     }
                 }
@@ -64,14 +66,14 @@ class CatDishesViewModel(application: Application): ViewModel() {
     }
 
     //фильтрация блюд по тегам
-    fun filterDishes(tags: List<String>): List<Dish>?{
+    fun filterDishes(tags: List<String>): List<Dish>? {
         if (tags.size == 0)
             return null
         else
-            return dataCategoryDishes.value?.filter { dish -> dish.tegs.containsAll(tags) }
+            return _dataCategoryDishes.value?.filter { dish -> dish.tegs.containsAll(tags) }
     }
 
-    fun back(){
+    fun back() {
         isBackPressed.postValue(true)
     }
 }

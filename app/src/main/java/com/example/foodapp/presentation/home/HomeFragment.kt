@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.domain.model.DishType
-import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentHomeBinding
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
     private val sharedViewModel: HomeViewModel by activityViewModels()
     private lateinit var categListener: DishTypeAdapter.OnItemCategClickListener
 
@@ -20,22 +19,33 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentHomeBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        categListener = object : DishTypeAdapter.OnItemCategClickListener{
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        categListener = object : DishTypeAdapter.OnItemCategClickListener {
             override fun onItemClick(type: DishType) {
                 sharedViewModel.loadCategoryDishes(type)
             }
         }
 
-        binding.apply {
-            homeViewModel = sharedViewModel
-            listener = categListener
-        }
-        binding.lifecycleOwner = viewLifecycleOwner
+        val adapter = DishTypeAdapter(categListener)
+        binding.rvDishType.adapter = adapter
 
-        return binding.root
+        sharedViewModel.dataDishTypes.observe(viewLifecycleOwner, {
+            adapter.updateItems(it)
+        })
+
+        sharedViewModel.isDishTypesLoading.observe(viewLifecycleOwner, {
+            binding.pbDishTypes.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        sharedViewModel.isOpenCategory.observe(viewLifecycleOwner, {
+
+        })
     }
 
 }
