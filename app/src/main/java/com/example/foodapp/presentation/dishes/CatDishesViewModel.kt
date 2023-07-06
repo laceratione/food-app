@@ -2,7 +2,6 @@ package com.example.foodapp.presentation.dishes
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Dish
@@ -12,6 +11,9 @@ import com.example.foodapp.App
 import com.example.foodapp.DataUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,15 +22,18 @@ import javax.inject.Inject
 
 class CatDishesViewModel(application: Application) : ViewModel() {
     //блюда конкретной категории
-    private val _dataCategoryDishes: MutableLiveData<List<Dish>> = MutableLiveData()
-    val dataCategoryDishes: MutableLiveData<List<Dish>> = _dataCategoryDishes
+    private val _dataCategoryDishes: MutableStateFlow<List<Dish>> =
+        MutableStateFlow(value = emptyList())
+    val dataCategoryDishes: StateFlow<List<Dish>> = _dataCategoryDishes.asStateFlow()
 
     //процесс загрузки
-    private val _isCategoryDishesLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val isCategoryDishesLoading: MutableLiveData<Boolean> = _isCategoryDishesLoading
+    private val _isCategoryDishesLoading: MutableStateFlow<Boolean> =
+        MutableStateFlow(value = false)
+    val isCategoryDishesLoading: StateFlow<Boolean> = _isCategoryDishesLoading.asStateFlow()
 
     //событие "Назад"
-    val isBackPressed: MutableLiveData<Boolean> = MutableLiveData()
+    private val _isBackPressed: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isBackPressed: StateFlow<Boolean> = _isBackPressed.asStateFlow()
 
     @Inject
     lateinit var categoryDishesUseCase: GetDataCategoryDishes
@@ -44,7 +49,7 @@ class CatDishesViewModel(application: Application) : ViewModel() {
     //загрузка блюд выбранной категории
     suspend fun getDataCategoryDishes() = coroutineScope {
         launch {
-            _isCategoryDishesLoading.postValue(true)
+            _isCategoryDishesLoading.value = true
             categoryDishesUseCase().enqueue(object : Callback<Dishes> {
                 override fun onResponse(call: Call<Dishes>, response: Response<Dishes>) {
                     val dishes = response.body()?.dishes
@@ -52,8 +57,8 @@ class CatDishesViewModel(application: Application) : ViewModel() {
                         dishes?.let {
                             DataUtils.getBitmaps(it)
 //                            getBitmaps(it)
-                            _dataCategoryDishes.postValue(it)
-                            _isCategoryDishesLoading.postValue(false)
+                            _dataCategoryDishes.value = it
+                            _isCategoryDishesLoading.value = false
                         }
                     }
                 }
@@ -70,10 +75,10 @@ class CatDishesViewModel(application: Application) : ViewModel() {
         if (tags.size == 0)
             return null
         else
-            return _dataCategoryDishes.value?.filter { dish -> dish.tegs.containsAll(tags) }
+            return _dataCategoryDishes.value.filter { dish -> dish.tegs.containsAll(tags) }
     }
 
     fun back() {
-        isBackPressed.postValue(true)
+        _isBackPressed.value = true
     }
 }

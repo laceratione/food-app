@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.domain.model.DishType
 import com.example.foodapp.databinding.FragmentHomeBinding
 
@@ -28,24 +30,26 @@ class HomeFragment : Fragment() {
 
         categListener = object : DishTypeAdapter.OnItemCategClickListener {
             override fun onItemClick(type: DishType) {
-                sharedViewModel.loadCategoryDishes(type)
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToCategoryDishes(nameCat = type.name)
+                findNavController().navigate(action)
             }
         }
 
         val adapter = DishTypeAdapter(categListener)
         binding.rvDishType.adapter = adapter
 
-        sharedViewModel.dataDishTypes.observe(viewLifecycleOwner, {
-            adapter.updateItems(it)
-        })
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.dataDishTypes.collect {
+                adapter.updateItems(it)
+            }
+        }
 
-        sharedViewModel.isDishTypesLoading.observe(viewLifecycleOwner, {
-            binding.pbDishTypes.visibility = if (it) View.VISIBLE else View.GONE
-        })
-
-        sharedViewModel.isOpenCategory.observe(viewLifecycleOwner, {
-
-        })
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.isDishTypesLoading.collect {
+                binding.pbDishTypes.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
     }
 
 }

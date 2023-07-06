@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodapp.databinding.ActivityMainBinding
-import com.example.foodapp.presentation.home.HomeFragmentDirections
 import com.example.foodapp.presentation.home.HomeViewModel
 import com.example.foodapp.presentation.home.HomeViewModelFactory
 
@@ -28,14 +27,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
-
-        homeViewModel.isOpenCategory.observe(this, {
-            if (it) {
-                val name = homeViewModel.selectCategory.name
-                val action = HomeFragmentDirections.actionHomeFragmentToCategoryDishes(name)
-                navController.navigate(action)
-            }
-        })
 
         setContentView(binding.root)
     }

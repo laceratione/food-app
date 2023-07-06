@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.foodapp.MainActivity
 import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentCategoryDishesBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.CornerFamily
@@ -47,17 +46,23 @@ class CategoryDishes() : Fragment() {
 
         initChipGroup()
 
-        sharedViewModel.dataCategoryDishes.observe(viewLifecycleOwner, {
-            adapter.updateItems(it)
-        })
+        //добавить extension
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.dataCategoryDishes.collect {
+                adapter.updateItems(it)
+            }
+        }
 
-        sharedViewModel.isCategoryDishesLoading.observe(viewLifecycleOwner, {
-            binding.pbCategoryDishes.visibility = if (it) View.VISIBLE else View.GONE
-        })
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.isCategoryDishesLoading.collect {
+                binding.pbCategoryDishes.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
 
-        sharedViewModel.isBackPressed.observe(requireActivity(), {
-//            if (it) {}
-        })
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.isBackPressed.collect {}
+        }
+
     }
 
     private fun initChipGroup() {
