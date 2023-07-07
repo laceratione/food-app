@@ -49,6 +49,7 @@ ___
 ## Стек используемых технологий
 - ЯП Kotlin
 - Kotlin Coroutines
+- Kotlin Flow
 - Retrofit2
 - Dagger2
 - MVVM

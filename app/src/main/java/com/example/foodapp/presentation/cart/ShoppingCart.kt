@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.foodapp.databinding.FragmentShoppingCartBinding
 import com.example.domain.model.Cart
 
@@ -30,14 +31,20 @@ class ShoppingCart: Fragment() {
         adapter = ShoppingCartAdapter()
         binding.rvShoppingCrt.adapter = adapter
 
-        binding.btnPay.text = String.format("Оплатить %s ₽", Cart.summLive.value.toString())
+        setTextBtnPay(Cart.summLive.value)
         binding.btnPay.setOnClickListener {
             sharedViewModel.pay()
         }
 
-        Cart.summLive.observe(viewLifecycleOwner, {
-            binding.btnPay.text = String.format("Оплатить %s ₽", it.toString())
-        })
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            Cart.summLive.collect{
+                setTextBtnPay(it)
+            }
+        }
+    }
+
+    private fun setTextBtnPay(summ: Int){
+        binding.btnPay.text = String.format("Оплатить %s ₽", summ.toString())
     }
 
 }

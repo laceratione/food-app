@@ -1,18 +1,19 @@
 package com.example.domain.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 //корзина покупок
 object Cart {
     private var dishes: MutableList<Dish> = mutableListOf()
 
     private var _summ: Int = 0
-    private val _summLive: MutableLiveData<Int> = MutableLiveData(0)
-    val summLive: LiveData<Int> = _summLive
+    private val _summLive: MutableStateFlow<Int> = MutableStateFlow(0)
+    val summLive: StateFlow<Int> = _summLive.asStateFlow()
 
     fun setSumm() {
-        _summLive.postValue(_summ)
+        _summLive.value = _summ
     }
 
     //добавить товар

@@ -56,7 +56,6 @@ class CatDishesViewModel(application: Application) : ViewModel() {
                     viewModelScope.launch(Dispatchers.IO) {
                         dishes?.let {
                             DataUtils.getBitmaps(it)
-//                            getBitmaps(it)
                             _dataCategoryDishes.value = it
                             _isCategoryDishesLoading.value = false
                         }
