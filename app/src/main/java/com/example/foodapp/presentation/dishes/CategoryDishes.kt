@@ -66,7 +66,7 @@ class CategoryDishes() : Fragment() {
     }
 
     private fun initChipGroup() {
-        val tags: List<String> = listOf("Все меню", "Салаты", "С рисом", "С рыбой")
+        val tags = resources.getStringArray(R.array.tags).toList()
         val chipGroup: ChipGroup? = getView()?.findViewById(R.id.chipGroup)
         tags.forEach { tagName ->
             chipGroup?.addView(createChip(tagName))

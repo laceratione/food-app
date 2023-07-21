@@ -10,7 +10,7 @@ import retrofit2.Call
 class GetDataDishTypes(
     private val cloudRepository: CloudRepository,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
-){
+) {
     suspend operator fun invoke():
             Call<Categories> = withContext(defaultDispatcher) {
         val items = cloudRepository.getDishTypes()
