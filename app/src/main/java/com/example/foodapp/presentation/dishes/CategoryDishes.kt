@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -46,23 +47,26 @@ class CategoryDishes() : Fragment() {
 
         initChipGroup()
 
-        //добавить extension
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            sharedViewModel.dataCategoryDishes.collect {
-                adapter.updateItems(it)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            sharedViewModel.isCategoryDishesLoading.collect {
-                binding.pbCategoryDishes.visibility = if (it) View.VISIBLE else View.GONE
+            sharedViewModel.uiState.collect { uiState ->
+                when (uiState) {
+                    is CatDishesUiState.Success -> {
+                        adapter.updateItems(uiState.types)
+                        binding.pbCategoryDishes.visibility = View.GONE
+                    }
+                    is CatDishesUiState.Error -> {
+                        showError(uiState.exception)
+                        binding.pbCategoryDishes.visibility = View.GONE
+                    }
+                    is CatDishesUiState.Loading ->
+                        binding.pbCategoryDishes.visibility = View.VISIBLE
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             sharedViewModel.isBackPressed.collect {}
         }
-
     }
 
     private fun initChipGroup() {
@@ -102,4 +106,7 @@ class CategoryDishes() : Fragment() {
         }
     }
 
+    private fun showError(t: Throwable) {
+        Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+    }
 }

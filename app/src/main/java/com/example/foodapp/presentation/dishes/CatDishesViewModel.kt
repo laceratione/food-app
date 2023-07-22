@@ -24,12 +24,10 @@ class CatDishesViewModel(application: Application) : ViewModel() {
     //блюда конкретной категории
     private val _dataCategoryDishes: MutableStateFlow<List<Dish>> =
         MutableStateFlow(value = emptyList())
-    val dataCategoryDishes: StateFlow<List<Dish>> = _dataCategoryDishes.asStateFlow()
 
-    //процесс загрузки
-    private val _isCategoryDishesLoading: MutableStateFlow<Boolean> =
-        MutableStateFlow(value = false)
-    val isCategoryDishesLoading: StateFlow<Boolean> = _isCategoryDishesLoading.asStateFlow()
+    private val _uiState: MutableStateFlow<CatDishesUiState> =
+        MutableStateFlow(CatDishesUiState.Success(emptyList()))
+    val uiState: StateFlow<CatDishesUiState> = _uiState.asStateFlow()
 
     //событие "Назад"
     private val _isBackPressed: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -48,8 +46,8 @@ class CatDishesViewModel(application: Application) : ViewModel() {
 
     //загрузка блюд выбранной категории
     suspend fun getDataCategoryDishes() = coroutineScope {
+        _uiState.value = CatDishesUiState.Loading()
         launch {
-            _isCategoryDishesLoading.value = true
             categoryDishesUseCase().enqueue(object : Callback<Dishes> {
                 override fun onResponse(call: Call<Dishes>, response: Response<Dishes>) {
                     val dishes = response.body()?.dishes
@@ -57,12 +55,13 @@ class CatDishesViewModel(application: Application) : ViewModel() {
                         dishes?.let {
                             DataUtils.getBitmaps(it)
                             _dataCategoryDishes.value = it
-                            _isCategoryDishesLoading.value = false
+                            _uiState.value = CatDishesUiState.Success(it)
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<Dishes>, t: Throwable) {
+                    _uiState.value = CatDishesUiState.Error(t)
                     Log.d("myLogs", t.message.toString())
                 }
             })
@@ -80,4 +79,10 @@ class CatDishesViewModel(application: Application) : ViewModel() {
     fun back() {
         _isBackPressed.value = true
     }
+}
+
+sealed class CatDishesUiState {
+    data class Success(val types: List<Dish>) : CatDishesUiState()
+    data class Error(val exception: Throwable) : CatDishesUiState()
+    class Loading : CatDishesUiState()
 }

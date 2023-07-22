@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,16 +41,23 @@ class HomeFragment : Fragment() {
         binding.rvDishType.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            sharedViewModel.dataDishTypes.collect {
-                adapter.updateItems(it)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            sharedViewModel.isDishTypesLoading.collect {
-                binding.pbDishTypes.visibility = if (it) View.VISIBLE else View.GONE
+            sharedViewModel.uiState.collect { uiState ->
+                when (uiState) {
+                    is HomeUiState.Success -> {
+                        adapter.updateItems(uiState.types)
+                        binding.pbDishTypes.visibility = View.GONE
+                    }
+                    is HomeUiState.Error -> {
+                        showError(uiState.exception)
+                        binding.pbDishTypes.visibility = View.GONE
+                    }
+                    is HomeUiState.Loading -> binding.pbDishTypes.visibility = View.VISIBLE
+                }
             }
         }
     }
 
+    private fun showError(t: Throwable) {
+        Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+    }
 }

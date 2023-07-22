@@ -20,14 +20,9 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class HomeViewModel(application: Application) : ViewModel() {
-    //категории блюд
-    private val _dataDishTypes: MutableStateFlow<List<DishType>> =
-        MutableStateFlow(value = emptyList())
-    val dataDishTypes: StateFlow<List<DishType>> = _dataDishTypes.asStateFlow()
-
-    //процесс загрузки
-    private val _isDishTypesLoading: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
-    val isDishTypesLoading: StateFlow<Boolean> = _isDishTypesLoading.asStateFlow()
+    private val _uiState: MutableStateFlow<HomeUiState> =
+        MutableStateFlow(HomeUiState.Success(emptyList()))
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     @Inject
     lateinit var dishTypesUseCase: GetDataDishTypes
@@ -37,30 +32,36 @@ class HomeViewModel(application: Application) : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             getDataDishTypes()
-        }.start()
+        }
     }
 
     //загрузка категорий блюд домашней страницы
     suspend fun getDataDishTypes() = coroutineScope {
+        _uiState.value = HomeUiState.Loading()
         launch {
-            _isDishTypesLoading.value = true
             dishTypesUseCase().enqueue(object : Callback<Categories> {
                 override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
                     val dishTypes = response.body()?.categories
                     viewModelScope.launch(Dispatchers.IO) {
                         dishTypes?.let {
                             DataUtils.getBitmaps(it)
-                            _dataDishTypes.value = it
-                            _isDishTypesLoading.value = false
+                            _uiState.value = HomeUiState.Success(it)
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<Categories>, t: Throwable) {
+                    _uiState.value = HomeUiState.Error(t)
                     Log.d("myLogs", t.message.toString())
                 }
             })
         }
     }
 
+}
+
+sealed class HomeUiState {
+    data class Success(val types: List<DishType>) : HomeUiState()
+    data class Error(val exception: Throwable) : HomeUiState()
+    class Loading : HomeUiState()
 }
