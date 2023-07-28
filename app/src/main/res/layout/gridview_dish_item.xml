@@ -19,12 +19,12 @@
     </LinearLayout>
 
     <TextView
-        android:text="Hello World"
-        android:fontFamily="@font/sf_prodisplay_medium"
-        android:layout_below="@id/llPhoto"
         android:id="@+id/tvGridItem"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llPhoto"
+        android:fontFamily="@font/sf_prodisplay_medium"
+        android:text="Hello World"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 </RelativeLayout>

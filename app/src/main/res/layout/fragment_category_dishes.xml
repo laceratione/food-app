@@ -49,36 +49,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            app:singleLine="true"/>
+            app:singleLine="true" />
     </HorizontalScrollView>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/pbCategoryDishes"
-            style="?android:attr/progressBarStyleLarge"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:indeterminateTint="@color/blue_shade1"
-            />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/placeholder_grid_item" />
+
+                <include layout="@layout/placeholder_grid_item" />
+
+                <include layout="@layout/placeholder_grid_item" />
+
+                <include layout="@layout/placeholder_grid_item" />
+
+                <include layout="@layout/placeholder_grid_item" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <GridView
             android:id="@+id/gvCategoryDishes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:columnWidth="120dp"
-            android:fastScrollEnabled="true"
             android:gravity="center"
             android:horizontalSpacing="5dp"
             android:numColumns="3"
             android:scrollbars="none"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp"
-            />
+            android:verticalSpacing="20dp" />
     </RelativeLayout>
 
 </LinearLayout>

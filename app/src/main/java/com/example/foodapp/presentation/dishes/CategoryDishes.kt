@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentCategoryDishesBinding
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.CornerFamily
@@ -24,6 +25,7 @@ class CategoryDishes() : Fragment() {
     private val args: CategoryDishesArgs by navArgs()
     private lateinit var adapter: CategoryDishesAdapter
     private var tags: MutableList<String> = mutableListOf()
+    private lateinit var shimmerLayout: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,18 +48,23 @@ class CategoryDishes() : Fragment() {
 
         initChipGroup()
 
+        shimmerLayout = binding.shimmerLayout
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             sharedViewModel.uiState.collect { uiState ->
                 when (uiState) {
                     is CatDishesUiState.Success -> {
                         adapter.updateItems(uiState.types)
+                        stopShimmer()
                     }
                     is CatDishesUiState.Error -> {
                         showError(uiState.exception)
-                        binding.pbCategoryDishes.visibility = View.GONE
+                        stopShimmer()
                     }
-                    is CatDishesUiState.Loading ->
-                        binding.pbCategoryDishes.visibility = View.VISIBLE
+                    is CatDishesUiState.Loading -> {
+                        shimmerLayout.startShimmer()
+                        shimmerLayout.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -105,5 +112,10 @@ class CategoryDishes() : Fragment() {
 
     private fun showError(t: Throwable) {
         Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+    }
+
+    private fun stopShimmer() {
+        shimmerLayout.stopShimmer()
+        shimmerLayout.visibility = View.GONE
     }
 }

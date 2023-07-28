@@ -66,15 +66,15 @@
                 android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
-                <include layout="@layout/placeholder_dish_item" />
+                <include layout="@layout/placeholder_type_dish" />
 
-                <include layout="@layout/placeholder_dish_item" />
+                <include layout="@layout/placeholder_type_dish" />
 
-                <include layout="@layout/placeholder_dish_item" />
+                <include layout="@layout/placeholder_type_dish" />
 
-                <include layout="@layout/placeholder_dish_item" />
+                <include layout="@layout/placeholder_type_dish" />
 
-                <include layout="@layout/placeholder_dish_item" />
+                <include layout="@layout/placeholder_type_dish" />
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
 

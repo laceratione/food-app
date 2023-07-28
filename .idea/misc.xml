@@ -15,10 +15,12 @@
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/fragment_shopping_cart.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/gridview_dish_item.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/gridview_dish_item.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/info_dish.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/info_dish_alert_dialog.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/placeholder_dish_item.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/placeholder_grid_item.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/placeholder_type_dish.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/recview_dish_item.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/recview_favorite_item.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/FoodApp/app/src/main/res/layout/recview_shopping_cart_item.xml" value="0.33" />
