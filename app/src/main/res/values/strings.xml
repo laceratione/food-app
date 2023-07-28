@@ -16,4 +16,6 @@
         <item>С рисом</item>
         <item>С рыбой</item>
     </string-array>
+
+    <string name="tv_dish_title">Заголовок</string>
 </resources>

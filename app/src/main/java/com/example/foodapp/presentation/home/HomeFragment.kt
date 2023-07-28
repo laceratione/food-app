@@ -11,11 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.domain.model.DishType
 import com.example.foodapp.databinding.FragmentHomeBinding
+import com.facebook.shimmer.ShimmerFrameLayout
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val sharedViewModel: HomeViewModel by activityViewModels()
     private lateinit var categListener: DishTypeAdapter.OnItemCategClickListener
+
+    private lateinit var shimmerLayout: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,18 +43,23 @@ class HomeFragment : Fragment() {
         val adapter = DishTypeAdapter(categListener)
         binding.rvDishType.adapter = adapter
 
+        shimmerLayout = binding.shimmerLayout
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             sharedViewModel.uiState.collect { uiState ->
                 when (uiState) {
                     is HomeUiState.Success -> {
                         adapter.updateItems(uiState.types)
-                        binding.pbDishTypes.visibility = View.GONE
+                        stopShimmer()
                     }
                     is HomeUiState.Error -> {
                         showError(uiState.exception)
-                        binding.pbDishTypes.visibility = View.GONE
+                        stopShimmer()
                     }
-                    is HomeUiState.Loading -> binding.pbDishTypes.visibility = View.VISIBLE
+                    is HomeUiState.Loading -> {
+                        shimmerLayout.startShimmer()
+                        shimmerLayout.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -59,5 +67,10 @@ class HomeFragment : Fragment() {
 
     private fun showError(t: Throwable) {
         Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+    }
+
+    private fun stopShimmer(){
+        shimmerLayout.stopShimmer()
+        shimmerLayout.visibility = View.GONE
     }
 }

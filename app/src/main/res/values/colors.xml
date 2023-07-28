@@ -10,6 +10,7 @@
 
     <color name="gray_shade1">#9B9B9B</color>
     <color name="gray_shade2">#E8E8E8</color>
+    <color name="gray_shade3">#dddddd</color>
     <color name="blue_shade1"> #0000FF</color>
     <color name="black_shade1">#666666</color>
     <color name="white_shade1">#F8F8FF</color>

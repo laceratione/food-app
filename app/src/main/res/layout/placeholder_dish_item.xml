@@ -6,19 +6,16 @@
     android:layout_marginBottom="10dp">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivDishType"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        android:background="@color/gray_shade3"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
-    <TextView
-        android:id="@+id/tvDishType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="100dp"
+        android:layout_height="15dp"
         android:layout_margin="20dp"
-        android:text="@string/tv_dish_title"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:background="@color/gray_shade1" />
 </RelativeLayout>
