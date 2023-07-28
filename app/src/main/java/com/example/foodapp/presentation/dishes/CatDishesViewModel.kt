@@ -41,7 +41,7 @@ class CatDishesViewModel(application: Application) : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             getDataCategoryDishes()
-        }.start()
+        }
     }
 
     //загрузка блюд выбранной категории

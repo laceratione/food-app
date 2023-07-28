@@ -8,6 +8,7 @@
     <string name="bot_nav_action_2">Поиск</string>
     <string name="bot_nav_action_3">Корзина</string>
     <string name="bot_nav_action_4">Аккаунт</string>
+    <string name="bot_nav_action_5">Избранное</string>
 
     <string-array name="tags">
         <item>Все меню</item>

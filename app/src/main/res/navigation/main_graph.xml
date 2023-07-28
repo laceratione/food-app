@@ -16,10 +16,10 @@
         </action>
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.foodapp.presentation.search.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodapp.presentation.favorite.FavoriteFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/shoppingCart"
         android:name="com.example.foodapp.presentation.cart.ShoppingCart"
