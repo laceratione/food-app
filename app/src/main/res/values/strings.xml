@@ -18,4 +18,18 @@
     </string-array>
 
     <string name="tv_dish_title">Заголовок</string>
+    <string name="btn_pay_text">Оплатить</string>
+    <string name="category">Категория</string>
+    <string name="favorite_title">Favorite</string>
+    <string name="profile_title">Profile</string>
+    <string name="tv_grid_item">Название блюда</string>
+    <string name="name_info_dish">Название</string>
+    <string name="price_info_dish">Цена</string>
+    <string name="weight_info_dish">Вес</string>
+    <string name="description_info_dish">Description</string>
+    <string name="btn_add_to_cart_text">Добавить в корзину</string>
+    <string name="name_shop_cart_item">Название</string>
+    <string name="price_shop_cart_item">Цена</string>
+    <string name="weight_shop_cart_item">Вес</string>
+    <string name="count_shop_cart_item">0</string>
 </resources>

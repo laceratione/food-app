@@ -53,7 +53,7 @@
         android:id="@+id/nameInfoDish"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Name"
+        android:text="@string/name_info_dish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -71,7 +71,7 @@
             android:id="@+id/priceInfoDish"
             android:layout_marginRight="5dp"
             android:textStyle="bold"
-            android:text="Price"
+            android:text="@string/price_info_dish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -79,7 +79,7 @@
             android:textSize="16sp"
             android:id="@+id/weightInfoDish"
             android:textColor="@color/gray_shade1"
-            android:text="Weight"
+            android:text="@string/weight_info_dish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:textColor="@color/black_shade1"
         android:textSize="16sp"
         android:layout_marginBottom="15dp"
-        android:text="Description"
+        android:text="@string/description_info_dish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -99,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/style_btn"
-        android:text="Добавить в корзину"
+        android:text="@string/btn_add_to_cart_text"
         android:textColor="@color/white"
         android:textSize="18sp"/>
 </LinearLayout>

@@ -34,7 +34,7 @@
                 android:id="@+id/nameShopCartItem"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="Название"
+                android:text="@string/name_shop_cart_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -48,7 +48,7 @@
                     android:id="@+id/priceShopCartItem"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
-                    android:text="Цена"
+                    android:text="@string/price_shop_cart_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -56,7 +56,7 @@
                     android:textSize="16sp"
                     android:id="@+id/weightShopCartItem"
                     android:textColor="@color/gray_shade1"
-                    android:text="Вес"
+                    android:text="@string/weight_shop_cart_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -88,7 +88,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_gravity="center"
                 android:textSize="18dp"
-                android:text="0"
+                android:text="@string/count_shop_cart_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

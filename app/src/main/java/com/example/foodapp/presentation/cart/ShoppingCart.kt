@@ -46,5 +46,4 @@ class ShoppingCart: Fragment() {
     private fun setTextBtnPay(summ: Int){
         binding.btnPay.text = String.format("Оплатить %s ₽", summ.toString())
     }
-
 }
