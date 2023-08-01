@@ -44,6 +44,10 @@ dependencies {
     implementation project(":domain")
     implementation project(":data")
 
+    //viewBindingDelegate
+//    api 'com.github.kirich1409:viewbindingpropertydelegate:1.4.4'
+    api 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.6'
+
     //skeleton
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 

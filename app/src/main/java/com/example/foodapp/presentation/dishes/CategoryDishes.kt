@@ -41,10 +41,12 @@ class CategoryDishes() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = CategoryDishesAdapter(requireContext())
-        binding.gvCategoryDishes.adapter = adapter
 
-        binding.tvCategoryDishes.text = args.nameCat
-        binding.btnBack.setOnClickListener { }
+        with(binding) {
+            gvCategoryDishes.adapter = adapter
+            tvCategoryDishes.text = args.nameCat
+            btnBack.setOnClickListener { }
+        }
 
         initChipGroup()
 

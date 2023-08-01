@@ -10,9 +10,9 @@ import com.example.foodapp.databinding.ActivityMainBinding
 import com.example.foodapp.presentation.home.HomeViewModel
 import com.example.foodapp.presentation.home.HomeViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var navController: NavController
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

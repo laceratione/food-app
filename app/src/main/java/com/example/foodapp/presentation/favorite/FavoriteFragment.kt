@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.foodapp.R
+import com.example.foodapp.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment: Fragment() {
+    private lateinit var binding: FragmentFavoriteBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
+        val favoriteAdapter = FavoriteAdapter()
+        binding.rvFavorites.adapter = favoriteAdapter
     }
 }
