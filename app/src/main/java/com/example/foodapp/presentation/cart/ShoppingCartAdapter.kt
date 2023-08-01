@@ -23,31 +23,33 @@ class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dish = dishes.get(position)
-
         val bitmap: Bitmap? = dish.bitmap
-        holder.picture.setImageBitmap(bitmap)
-        holder.name.text = dish.name
-        holder.price.text = dish.price.toString() + " ₽"
-        holder.weight.text ="· " + dish.weight.toString() + "г"
-        holder.count.text = dish.count.toString()
 
-        holder.btnRemove.setOnClickListener {
-            Cart.decreaseSum(dish.price)
-            var count = Integer.valueOf(holder.count.text.toString())
-            holder.count.text = (--count).toString()
-            dishes.get(position).count = count
+        with(holder) {
+            picture.setImageBitmap(bitmap)
+            name.text = dish.name
+            price.text = dish.price.toString() + " ₽"
+            weight.text = "· " + dish.weight.toString() + "г"
+            count.text = dish.count.toString()
 
-            if (count == 0) {
-                dishes.remove(dishes.get(position))
-                updateItems(dishes)
+            btnRemove.setOnClickListener {
+                Cart.decreaseSum(dish.price)
+                var count = Integer.valueOf(holder.count.text.toString())
+                holder.count.text = (--count).toString()
+                dishes.get(position).count = count
+
+                if (count == 0) {
+                    dishes.remove(dishes.get(position))
+                    updateItems(dishes)
+                }
             }
-        }
 
-        holder.btnAdd.setOnClickListener {
-            Cart.increaseSum(dish.price)
-            var count = Integer.valueOf(holder.count.text.toString())
-            holder.count.text = (++count).toString()
-            dishes.get(position).count = count
+            btnAdd.setOnClickListener {
+                Cart.increaseSum(dish.price)
+                var count = Integer.valueOf(holder.count.text.toString())
+                holder.count.text = (++count).toString()
+                dishes.get(position).count = count
+            }
         }
     }
 

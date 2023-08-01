@@ -24,14 +24,14 @@
 
         <LinearLayout
             android:layout_margin="5dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/btnAddToFavorite"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:padding="7dp"
                 android:background="@drawable/style_image_btn"
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
         <TextView
             android:textSize="16sp"
             android:id="@+id/priceInfoDish"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:textStyle="bold"
             android:text="@string/price_info_dish"
             android:layout_width="wrap_content"

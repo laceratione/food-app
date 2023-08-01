@@ -27,7 +27,7 @@ object Cart {
         return true
     }
 
-    fun getDishes(): MutableList<Dish> = dishes
+    fun getDishes() = dishes
 
     fun increaseSum(price: Int) {
         _summ += price

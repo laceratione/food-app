@@ -28,10 +28,13 @@ class DishTypeAdapter(private val listener: OnItemCategClickListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         try {
             val bitmap: Bitmap? = dishTypes[position].bitmap
-            holder.ivPicture.setImageBitmap(bitmap)
-            holder.tvTitle.text = dishTypes[position].name
-            holder.itemView.setOnClickListener {
-                listener.onItemClick(dishTypes[position])
+
+            with(holder) {
+                ivPicture.setImageBitmap(bitmap)
+                tvTitle.text = dishTypes[position].name
+                itemView.setOnClickListener {
+                    listener.onItemClick(dishTypes[position])
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()

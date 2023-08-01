@@ -11,8 +11,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import com.example.domain.model.Cart
 import com.example.domain.model.Dish
+import com.example.domain.model.Favorites
 import com.example.foodapp.R
 
 class AlertDialogInfoDish(
@@ -48,9 +50,19 @@ class AlertDialogInfoDish(
         btnAddToCart.setOnClickListener {
             val isAdd = Cart.add(dish)
             if (isAdd)
-                showMessage("Товар добавлен в корзину")
+                showMessage(context.getString(R.string.msg_dish_added_to_cart))
             else
-                showMessage("Товар уже есть в корзине")
+                showMessage(context.getString(R.string.msg_dish_already_exist_in_cart))
+        }
+
+        //добавить в избранное
+        val btnAddToFavorites: ImageButton = myView.findViewById(R.id.btnAddToFavorite)
+        btnAddToFavorites.setOnClickListener {
+            val isAdd = Favorites.add(dish)
+            if (isAdd)
+                showMessage(context.getString(R.string.msg_dish_added_to_favorites))
+            else
+                showMessage(context.getString(R.string.msg_dish_already_exist_in_favorites))
         }
 
         dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
