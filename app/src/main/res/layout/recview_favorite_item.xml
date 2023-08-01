@@ -6,60 +6,69 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:background="@drawable/style_back_dish"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/style_back_dish"
             android:gravity="center_horizontal">
 
             <ImageView
-                android:padding="6dp"
                 android:id="@+id/ivFavorites"
                 android:layout_width="62dp"
-                android:layout_height="62dp" />
+                android:layout_height="62dp"
+                android:padding="6dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nameFavoritesItem"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/name_shop_cart_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="16sp"
                     android:id="@+id/priceFavoritesItem"
-                    android:layout_marginEnd="5dp"
-                    android:textStyle="bold"
-                    android:text="@string/price_shop_cart_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/price_shop_cart_item"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="16sp"
                     android:id="@+id/weightFavoritesItem"
-                    android:textColor="@color/gray_shade1"
-                    android:text="@string/weight_shop_cart_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight_shop_cart_item"
+                    android:textColor="@color/gray_shade1"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnDeleteFavoritesItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:src="@drawable/ic_delete_item" />
 </LinearLayout>

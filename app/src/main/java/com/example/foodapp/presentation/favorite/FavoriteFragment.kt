@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.foodapp.databinding.FragmentFavoriteBinding
 
+//обновить иконку Избранное на главном экране
 class FavoriteFragment: Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
 

@@ -50,19 +50,19 @@ class AlertDialogInfoDish(
         btnAddToCart.setOnClickListener {
             val isAdd = Cart.add(dish)
             if (isAdd)
-                showMessage("Товар добавлен в корзину")
+                showMessage(context.getString(R.string.msg_dish_added_to_cart))
             else
-                showMessage("Товар уже есть в корзине")
+                showMessage(context.getString(R.string.msg_dish_already_exist_in_cart))
         }
 
         //добавить в избранное
-        val btnAddToFavorites: AppCompatButton = myView.findViewById(R.id.btnAddToFavorite)
+        val btnAddToFavorites: ImageButton = myView.findViewById(R.id.btnAddToFavorite)
         btnAddToFavorites.setOnClickListener {
             val isAdd = Favorites.add(dish)
             if (isAdd)
-                showMessage("Товар добавлен в избранное")
+                showMessage(context.getString(R.string.msg_dish_added_to_favorites))
             else
-                showMessage("Товар уже есть в избранном")
+                showMessage(context.getString(R.string.msg_dish_already_exist_in_favorites))
         }
 
         dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

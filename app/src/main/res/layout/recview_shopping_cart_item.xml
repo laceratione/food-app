@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,32 +11,32 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:background="@drawable/style_back_dish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/style_back_dish"
             android:gravity="center_horizontal">
 
             <ImageView
-                android:padding="6dp"
                 android:id="@+id/ivShopCartItem"
                 android:layout_width="62dp"
-                android:layout_height="62dp" />
+                android:layout_height="62dp"
+                android:padding="6dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nameShopCartItem"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="@string/name_shop_cart_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/name_shop_cart_item"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,37 +44,37 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="16sp"
                     android:id="@+id/priceShopCartItem"
-                    android:layout_marginRight="5dp"
-                    android:textStyle="bold"
-                    android:text="@string/price_shop_cart_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/price_shop_cart_item"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="16sp"
                     android:id="@+id/weightShopCartItem"
-                    android:textColor="@color/gray_shade1"
-                    android:text="@string/weight_shop_cart_item"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight_shop_cart_item"
+                    android:textColor="@color/gray_shade1"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <LinearLayout
-            android:layout_alignParentRight="true"
-            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/style_remove_add_panel"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/btnRemove"
@@ -84,13 +84,13 @@
 
             <TextView
                 android:id="@+id/countShopCartItem"
-                android:textStyle="bold"
-                android:layout_marginHorizontal="20dp"
-                android:layout_gravity="center"
-                android:textSize="18dp"
-                android:text="@string/count_shop_cart_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/count_shop_cart_item"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/btnAdd"
@@ -99,6 +99,4 @@
                 android:src="@drawable/ic_add" />
         </LinearLayout>
     </RelativeLayout>
-
-
 </LinearLayout>
