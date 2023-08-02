@@ -41,7 +41,7 @@ ___
 Панель навигации содержит иконку с количеством товаров, добавленных в Избранное.
 Также пользователь может удалить элементы из этого списка.
 <h1 align="center">
-    <img src="https://github.com/laceratione/food-app/assets/43997427/e8314e15-040e-4bb2-90f2-fe0992e30001 width="250" height="500">
+    <img src="https://github.com/laceratione/food-app/assets/43997427/e8314e15-040e-4bb2-90f2-fe0992e30001" width="250" height="500">
 </h1>
 
 ___
