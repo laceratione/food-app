@@ -5,19 +5,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Dish
-import com.example.domain.model.Dishes
 import com.example.domain.usecase.GetDataCategoryDishes
 import com.example.foodapp.App
 import com.example.foodapp.DataUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class CatDishesViewModel(application: Application) : ViewModel() {
@@ -48,23 +42,19 @@ class CatDishesViewModel(application: Application) : ViewModel() {
     suspend fun getDataCategoryDishes() = coroutineScope {
         _uiState.value = CatDishesUiState.Loading()
         launch {
-            categoryDishesUseCase().enqueue(object : Callback<Dishes> {
-                override fun onResponse(call: Call<Dishes>, response: Response<Dishes>) {
-                    val dishes = response.body()?.dishes
-                    viewModelScope.launch(Dispatchers.IO) {
-                        dishes?.let {
-                            DataUtils.getBitmaps(it)
-                            _dataCategoryDishes.value = it
-                            _uiState.value = CatDishesUiState.Success(it)
-                        }
+            categoryDishesUseCase()
+                .flowOn(Dispatchers.IO)
+                .catch { error ->
+                    _uiState.value = CatDishesUiState.Error(error)
+                    Log.d("myLogs", error.message.toString())
+                }
+                .collect { dishes ->
+                    launch {
+                        DataUtils.getBitmaps(dishes)
+                        _dataCategoryDishes.value = dishes
+                        _uiState.value = CatDishesUiState.Success(dishes)
                     }
                 }
-
-                override fun onFailure(call: Call<Dishes>, t: Throwable) {
-                    _uiState.value = CatDishesUiState.Error(t)
-                    Log.d("myLogs", t.message.toString())
-                }
-            })
         }
     }
 

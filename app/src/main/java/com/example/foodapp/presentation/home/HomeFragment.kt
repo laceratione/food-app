@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.domain.model.DishType
+import com.example.foodapp.R
 import com.example.foodapp.databinding.FragmentHomeBinding
 import com.facebook.shimmer.ShimmerFrameLayout
 
@@ -66,7 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showError(t: Throwable) {
-        Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.error_load_data), Toast.LENGTH_LONG).show()
     }
 
     private fun stopShimmer(){

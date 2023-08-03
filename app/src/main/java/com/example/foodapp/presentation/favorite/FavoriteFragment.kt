@@ -25,4 +25,6 @@ class FavoriteFragment: Fragment() {
         val favoriteAdapter = FavoriteAdapter()
         binding.rvFavorites.adapter = favoriteAdapter
     }
+
+    //сделать локальный репозиторий и сохранять туда избранное
 }

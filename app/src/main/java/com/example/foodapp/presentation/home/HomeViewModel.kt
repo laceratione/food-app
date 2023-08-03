@@ -4,19 +4,14 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.*
+import com.example.domain.model.DishType
 import com.example.foodapp.App
 import com.example.domain.usecase.GetDataDishTypes
 import com.example.foodapp.DataUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class HomeViewModel(application: Application) : ViewModel() {
@@ -39,25 +34,20 @@ class HomeViewModel(application: Application) : ViewModel() {
     suspend fun getDataDishTypes() = coroutineScope {
         _uiState.value = HomeUiState.Loading()
         launch {
-            dishTypesUseCase().enqueue(object : Callback<Categories> {
-                override fun onResponse(call: Call<Categories>, response: Response<Categories>) {
-                    val dishTypes = response.body()?.categories
-                    viewModelScope.launch(Dispatchers.IO) {
-                        dishTypes?.let {
-                            DataUtils.getBitmaps(it)
-                            _uiState.value = HomeUiState.Success(it)
-                        }
+            dishTypesUseCase()
+                .flowOn(Dispatchers.IO)
+                .catch { error ->
+                    _uiState.value = HomeUiState.Error(error)
+                    Log.d("myLogs", error.message.toString())
+                }
+                .collect { types ->
+                    launch {
+                        DataUtils.getBitmaps(types)
+                        _uiState.value = HomeUiState.Success(types)
                     }
                 }
-
-                override fun onFailure(call: Call<Categories>, t: Throwable) {
-                    _uiState.value = HomeUiState.Error(t)
-                    Log.d("myLogs", t.message.toString())
-                }
-            })
         }
     }
-
 }
 
 sealed class HomeUiState {

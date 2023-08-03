@@ -1,17 +1,19 @@
 package com.example.data.repository
 
 import com.example.data.api.RetrofitAPI
-import com.example.domain.model.Categories
-import com.example.domain.model.Dishes
+import com.example.data.model.mapToDomain
+import com.example.domain.model.Dish
+import com.example.domain.model.DishType
 import com.example.domain.repository.CloudRepository
-import retrofit2.Call
+import kotlinx.coroutines.flow.*
 
 class CloudRepositoryImpl(private val retrofitAPI: RetrofitAPI) : CloudRepository {
-    override fun getDishTypes(): Call<Categories> {
-        return retrofitAPI.getDishTypes()
+    override fun getDishTypes(): Flow<List<DishType>> = flow {
+        emit(retrofitAPI.getDishTypes().mapToDomain())
     }
 
-    override fun getCategoryDishes(): Call<Dishes> {
-        return retrofitAPI.getCategoryDishes()
+    override fun getCategoryDishes(): Flow<List<Dish>> = flow {
+        emit(retrofitAPI.getCategoryDishes().mapToDomain())
     }
+
 }

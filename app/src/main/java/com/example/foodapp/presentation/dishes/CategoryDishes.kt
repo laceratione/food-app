@@ -113,7 +113,7 @@ class CategoryDishes() : Fragment() {
     }
 
     private fun showError(t: Throwable) {
-        Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.error_load_data), Toast.LENGTH_LONG).show()
     }
 
     private fun stopShimmer() {

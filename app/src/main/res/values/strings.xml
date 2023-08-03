@@ -37,4 +37,5 @@
     <string name="msg_dish_already_exist_in_cart">Товар уже есть в корзине</string>
     <string name="msg_dish_added_to_favorites">Товар добавлен в избранное</string>
     <string name="msg_dish_already_exist_in_favorites">Товар уже есть в избранном</string>
+    <string name="error_load_data">Something went wrong</string>
 </resources>
