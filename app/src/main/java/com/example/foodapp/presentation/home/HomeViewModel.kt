@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.DishType
 import com.example.foodapp.App
 import com.example.domain.usecase.GetDataDishTypes
 import com.example.foodapp.DataUtils
@@ -48,10 +47,4 @@ class HomeViewModel(application: Application) : ViewModel() {
                 }
         }
     }
-}
-
-sealed class HomeUiState {
-    data class Success(val types: List<DishType>) : HomeUiState()
-    data class Error(val exception: Throwable) : HomeUiState()
-    class Loading : HomeUiState()
 }

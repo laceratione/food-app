@@ -2,23 +2,22 @@ package com.example.foodapp.presentation.cart
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodapp.R
 import com.example.domain.model.Cart
 import com.example.domain.model.Dish
+import com.example.foodapp.databinding.RecviewShoppingCartItemBinding
 
 class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
     private var dishes: MutableList<Dish> = Cart.getDishes()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.recview_shopping_cart_item, parent, false)
-        return ViewHolder(itemView)
+        val binding = RecviewShoppingCartItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -60,14 +59,16 @@ class ShoppingCartAdapter() : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolde
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val picture: ImageView = itemView.findViewById(R.id.ivShopCartItem)
-        val name: TextView = itemView.findViewById(R.id.nameShopCartItem)
-        val price: TextView = itemView.findViewById(R.id.priceShopCartItem)
-        val weight: TextView = itemView.findViewById(R.id.weightShopCartItem)
-        val count: TextView = itemView.findViewById(R.id.countShopCartItem)
+    class ViewHolder(
+        binding: RecviewShoppingCartItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        val picture: ImageView = binding.ivShopCartItem
+        val name: TextView = binding.nameShopCartItem
+        val price: TextView = binding.priceShopCartItem
+        val weight: TextView = binding.weightShopCartItem
+        val count: TextView = binding.countShopCartItem
 
-        val btnRemove: ImageView = itemView.findViewById(R.id.btnRemove)
-        val btnAdd: ImageView = itemView.findViewById(R.id.btnAdd)
+        val btnRemove: ImageView = binding.btnRemove
+        val btnAdd: ImageView = binding.btnAdd
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import com.example.foodapp.R
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.domain.model.Dish
+import com.example.foodapp.R
 
 class CategoryDishesAdapter(private val context: Context): BaseAdapter() {
     private var dishes: List<Dish> = emptyList()
@@ -50,5 +52,4 @@ class CategoryDishesAdapter(private val context: Context): BaseAdapter() {
         dishes = items ?: emptyList()
         notifyDataSetChanged()
     }
-
 }

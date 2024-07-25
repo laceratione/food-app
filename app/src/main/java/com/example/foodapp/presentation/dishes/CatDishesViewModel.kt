@@ -70,9 +70,3 @@ class CatDishesViewModel(application: Application) : ViewModel() {
         _isBackPressed.value = true
     }
 }
-
-sealed class CatDishesUiState {
-    data class Success(val types: List<Dish>) : CatDishesUiState()
-    data class Error(val exception: Throwable) : CatDishesUiState()
-    class Loading : CatDishesUiState()
-}
